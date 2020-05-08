@@ -9,5 +9,9 @@
     <!-- Gazebo model - add a delay to let the controller start properly -->
     <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" 
         args="-param robot_description -urdf -model niryo_one" respawn="false" output="screen"/>
+
+   <!-- start this controller -->
+   <rosparam file="$(find niryo_one_gazebo)/config/niryo_one_controllers.yaml" command="load"/>
+  <node name="arm_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn arm_controller" respawn="false" output="screen"/>
         
 </launch>
