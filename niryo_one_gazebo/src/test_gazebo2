@@ -18,8 +18,8 @@ if __name__ == '__main__':
     print "Connected to server"
 
     #joint_names = ['shoulder_pan_joint', 'shoulder_lift_joint', 'elbow_joint','wrist_1_joint', 'wrist_2_joint', 'wrist_3_joint']
-    joint_names=["joint_1","joint_2","joint_3","joint_4","joint_5","joint_6"]
-    Q0 = [0.0, -1.0, 1.7, -2.2, -1.6, 0.0]
+    jnames=["joint_1","joint_2","joint_3","joint_4","joint_5","joint_6"]
+    Q0 = [0.0, 0, 0, 0, 0, 0.0]
 
     g = FollowJointTrajectoryGoal()
     g.trajectory = JointTrajectory()
@@ -36,7 +36,7 @@ if __name__ == '__main__':
         robot_client.cancel_goal()
 
         # Modification of the motion
-        Q0[0] = Q0[0]-0.005
+        Q0[0] = Q0[0]+0.005
 
         g.trajectory.points = [ JointTrajectoryPoint(positions=Q0, velocities=[0]*6, time_from_start=rospy.Duration(0.008))]
         robot_client.send_goal(g)

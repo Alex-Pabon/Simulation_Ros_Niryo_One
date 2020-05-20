@@ -1,11 +1,14 @@
 # Publish all joint states -----------------------
-joint_state_controller:
-    type: "joint_state_controller/JointStateController"
-    publish_rate: 50
-    
+#joint_state_controller:
+#    type: "joint_state_controller/JointStateController"
+#    publish_rate: 50
+ #Se generan cambios duplicando el urf5
+   
 # Joint Trajectory Controller -----------------------
+#type: "effort_controllers/JointTrajectoryController"
+#stopped_velocity_tolerance: 0.09
 niryo_one_follow_joint_trajectory_controller:
-    type: "effort_controllers/JointTrajectoryController"
+    type: position_controllers/JointTrajectoryController
     joints: 
         - joint_1  
         - joint_2
@@ -14,14 +17,16 @@ niryo_one_follow_joint_trajectory_controller:
         - joint_5  
         - joint_6
     constraints:
-        goal_time: 1.0 
+        goal_time: 1.0
         joint_1: {trajectory: 0.1, goal: 0.1}
-        joint_2: {trajectory: 0.1, goal: 0.1}
+        joint_2: {trajectory: 0.1, goal: 0.5}
         joint_3: {trajectory: 0.1, goal: 0.1}
-        joint_4: {trajectory: 0.1, goal: 0.1}
+        joint_4: {trajectory: 0.1, goal: 0.5}
         joint_5: {trajectory: 0.1, goal: 0.1}
         joint_6: {trajectory: 0.1, goal: 0.1}
     stop_trajectory_duration: 1.0
+    state_publish_rate:  25
+    action_monitor_rate: 10
     gains:
       joint_1: {p: 100,  d: 0.1, i: 0, i_clamp: 0}
       joint_2: {p: 100,  d: 0.1, i: 0, i_clamp: 0}
@@ -29,6 +34,16 @@ niryo_one_follow_joint_trajectory_controller:
       joint_4: {p: 100,  d: 0.1, i: 0, i_clamp: 0}
       joint_5: {p: 100,  d: 0.1, i: 0, i_clamp: 0}
       joint_6: {p: 100,  d: 0.1, i: 0, i_clamp: 0}
+joint_group_position_controller:
+  type: position_controllers/JointGroupPositionController
+  joints: 
+     - joint_1  
+     - joint_2
+     - joint_3  
+     - joint_4  
+     - joint_5  
+     - joint_6
+
 
 #arm_controller:
 #  type: position_controllers/JointTrajectoryController
