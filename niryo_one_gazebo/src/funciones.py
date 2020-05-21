@@ -80,7 +80,7 @@ def ikine_niryo(xdes, q0):
     Calcular la cinematica inversa de Niryo One numericamente a 
     partir de la configuración articular inicial de q0. 
     """
-    epsilon  = 0.0001
+    epsilon  = 0.001
     epsilon2 = 0.01
     max_iter = 1500
     delta    = 0.00001

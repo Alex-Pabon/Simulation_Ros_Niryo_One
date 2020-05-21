@@ -11,51 +11,54 @@ from funciones import *
 import math
 
 # Joint names
-joint_names=["joint_1","joint_2","joint_3","joint_4","joint_5","joint_6"]
+joint_names=["joint_1","joint_2","joint_3","joint_4","joint_5","joint_6"]    #Joint name
 
+#Pick and place
 
 if __name__ == "__main__":
 	rospy.init_node("sendJointsNode")
 
-	#pub = rospy.Publisher("joint_states", JointState, queue_size=1000)
-    	robot_client = actionlib.SimpleActionClient('niryo_one_follow_joint_trajectory_controller/follow_joint_trajectory',FollowJointTrajectoryAction) #Conectarse servidor
+    	robot_client = actionlib.SimpleActionClient('niryo_one_follow_joint_trajectory_controller/follow_joint_trajectory',FollowJointTrajectoryAction) #Connect to server
 
     	print "Waiting for server..."
    	robot_client.wait_for_server()
 	print "Connected to server"
 
-	Q0 = [0, 1, 0, 1, 0, 1]
-	xd = [0.196, 0, 0.423]
+	Q0 = [0, 0.2, 0, 1, 0, 1] #Initial position
 
    	g = FollowJointTrajectoryGoal()
     	g.trajectory = JointTrajectory()
    	g.trajectory.joint_names = joint_names
 
-    	# Initial position
+	#Simulate pick and place
+    	# Send Initial position
     	g.trajectory.points = [ JointTrajectoryPoint(positions=Q0, velocities=[0]*6, time_from_start=rospy.Duration(2.0))]
-
-	
-    	robot_client.send_goal(g)
+    	robot_client.send_goal(g)		#Send goal
     	robot_client.wait_for_result()
     	rospy.sleep(1)
-    
     	rate = rospy.Rate(100)
-    	while not rospy.is_shutdown():
-        	robot_client.cancel_goal()
+        rate.sleep()
 
- 
-        	#Q0[0] = Q0[0]+0.005
+	print('Esperando')
+	rospy.sleep(5)				#Wait 5 seconds in the starting position
+	Q0 = [1.35, -1.07, 0, 0, 0, 0]		#Objecto position
+       	g.trajectory.points = [ JointTrajectoryPoint(positions=Q0, velocities=[0]*6, time_from_start=rospy.Duration(0.008))]
+        robot_client.send_goal(g)
+        robot_client.wait_for_result()
 
-       	 	g.trajectory.points = [ JointTrajectoryPoint(positions=Q0, velocities=[0]*6, time_from_start=rospy.Duration(0.008))]
-        	robot_client.send_goal(g)
-        	robot_client.wait_for_result()
+	rospy.sleep(3)
 
-		Q0 = ikine_niryo(xd, Q0)
+	print(Q0)
+	Q0 = [0, 0, 0, 0, 0, 0]			#Return position
+       	g.trajectory.points = [ JointTrajectoryPoint(positions=Q0, velocities=[0]*6, time_from_start=rospy.Duration(0.008))]
+        robot_client.send_goal(g)
+        robot_client.wait_for_result()
 
-        	rate.sleep()
+	rospy.sleep(3)
 
-    		robot_client.cancel_goal()
-		
-		xd = [0.196, 0.1, 0.423]
-		rospy.sleep(5)
+	Q0 = [-1.30, -1.07, 0, 0, 0, 0]		#Place Object
+       	g.trajectory.points = [ JointTrajectoryPoint(positions=Q0, velocities=[0]*6, time_from_start=rospy.Duration(0.008))]
+        robot_client.send_goal(g)
+        robot_client.wait_for_result()
+
 

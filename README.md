@@ -1,18 +1,20 @@
 # Niryo One ROS Simulation
 Licensed under GPLv3 (see [LICENSE file](https://github.com/NiryoRobotics/niryo_one_ros_simulation/blob/master/LICENSE))
 
-Works on ROS Kinetic/Melodic.
+Works on ROS Kinetic.
 
-ROS simulation for the robot [Niryo One](https://niryo.com/niryo-one/). You can control the robot using ros_control, Moveit, and see a 3D simulation on both Rviz and Gazebo.
+ROS simulation for the robot [Niryo One](https://niryo.com/niryo-one/). This work simulates the Niryo One robot in Gazebo and Rviz, and also shows different ways to control it.
 
-## Install from source
+
+
+##1. Install from source
 
 Get the code:
 
 ```bash
 mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws/src
-git clone https://github.com/NiryoRobotics/niryo_one_ros_simulation.git .
+git clone https://github.com/Alex-Pabon/Simulation_Ros_Niryo_One
 ```
 
 Build the packages:
@@ -22,10 +24,11 @@ cd ~/catkin_ws
 catkin_make
 ```
 
-Don't forget to use those commands before you try to launch anything (you can add them in your .bashrc) :
+
+#### Don't forget to use those commands before you try to launch anything or terminal(you can add them in your .bashrc) : ####
 
 ```bash
-source /opt/ros/melodic/setup.bash # replace 'melodic' by your ROS version
+source /opt/ros/kinetic/setup.bash 
 source ~/catkin_ws/devel/setup.bash
 ```
 
@@ -37,17 +40,45 @@ To simply display the robot and get to move each joint separately, run:
 roslaunch niryo_one_description display.launch
 ```
 
-## Moveit demo
-
-The Moveit demo will start Niryo One in Rviz and provide motion planning functionalities (with a 'fake' controller):
-
+## Show Niryo in RVIZ and move it with the Joystick
+Run: 
 ```bash
-roslaunch niryo_one_moveit_config demo.launch
+roslaunch niryo_one_description display2.launch
 ```
 
-## Start the Gazebo simulation
+In another terminal, configure your Joystick you can do it bye using the following guide:
+http://wiki.ros.org/joy/Tutorials/ConfiguringALinuxJoystick
 
-Developed and tested on ROS Melodic/Gazebo 9.
+Then, in another terminal, run:
+```bash
+rosrun niryo_one_description joystick_ikine
+```
+
+## Niryo One in Gazebo
+Developed and tested on ROS Kinetic/Gazebo 9.
+
+1. Constant motion
+El Robot tendrá una posición inicial y apartir de esta se desplazará constantemente.
+First start Gazebo (empty world) and Niryo One model:
+
+```bash
+roslaunch niryo_one_gazebo niryo_one_world.launch
+```
+
+Then, start the controllers (ros_control):
+
+```bash
+roslaunch niryo_one_gazebo niryo_one_control.launch
+```
+
+Por último, en una nueva terminal ejecuta:
+```bash
+rosrun niryo_one_gazebo cambio.py
+```
+
+2. Pick and place
+
+El robot se moverá hasta el lugar del objeto, y luego simulará un desplazamiento del mismo hasta un punto contrario
 
 First start Gazebo (empty world) and Niryo One model:
 
@@ -61,14 +92,19 @@ Then, start the controllers (ros_control):
 roslaunch niryo_one_gazebo niryo_one_control.launch
 ```
 
+Por último, en una nueva terminal ejecuta:
+
+```bash
+rosrun niryo_one_gazebo cambio2.py
+```bash
+
+
+### Otra parte
+
+
+
 The ROS interface to control Niryo One is the same for the [real robot](https://github.com/NiryoRobotics/niryo_one_ros) and the Gazebo simulation.
 
 The controller used for Niryo One is a joint\_trajectory\_controller (from ros\_control). See the [joint\_trajectory\_controller documentation](http://wiki.ros.org/joint_trajectory_controller) to know how to use it.
 
-If you want to add motion planning with Moveit, also run (after the controllers):
 
-```bash
-roslaunch niryo_one_moveit_config move_group.launch
-```
-
-You can now use the Python or C++ MoveGroup interface. This interface will call the Moveit motion planning functionality and then send the computed plan to the joint\_trajectory\_controller.

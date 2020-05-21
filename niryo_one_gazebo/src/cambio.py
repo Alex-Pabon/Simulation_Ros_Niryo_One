@@ -17,7 +17,7 @@ joint_names=["joint_1","joint_2","joint_3","joint_4","joint_5","joint_6"]
 if __name__ == "__main__":
 	rospy.init_node("sendJointsNode")
 
-	#pub = rospy.Publisher("joint_states", JointState, queue_size=1000)
+
     	robot_client = actionlib.SimpleActionClient('niryo_one_follow_joint_trajectory_controller/follow_joint_trajectory',FollowJointTrajectoryAction) #Conectarse servidor
 
     	print "Waiting for server..."
