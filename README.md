@@ -95,8 +95,8 @@ roslaunch niryo_one_gazebo niryo_one_control.launch
 Por último, en una nueva terminal ejecuta:
 
 ```bash
-rosrun niryo_one_gazebo cambio2.py
-```bash
+rosrun niryo_one_gazebo PickPlace.py
+```
 
 
 ### Otra parte
