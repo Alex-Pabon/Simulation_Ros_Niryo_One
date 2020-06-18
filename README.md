@@ -73,7 +73,7 @@ roslaunch niryo_one_gazebo niryo_one_control.launch
 
 Finally, in a new terminal:
 ```bash
-rosrun niryo_one_gazebo cambio.py
+rosrun niryo_one_gazebo Movimiento.py
 ```
 
 2. Pick and place
