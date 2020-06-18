@@ -26,14 +26,7 @@ def fkine_niryo(q):
     """
     Calcular la cinematica directa del robot Niryo One 
     """
-    # Longitudes (en metros)
-    # Matrices DH (completar)  -- Valores para Robot Niryo One
-    #T1 = dh(0.183,q[0],0,math.pi/2)	
-    #T2 = dh(0.21,math.pi+q[1],0,0)
-    #T3 =dh(0,q[2],-0.029973,math.pi/2)
-    #T4 = dh(0.18,q[3],0,math.pi/2)
-    #T5 = dh(0,math.pi+q[4],0,(math.pi/2))
-    #T6 = dh(0.016395,q[5],0,0)
+    # Longitudes (en metros) - Valores paraNiryo One
     T1 = dh(0.183,q[0],0,math.pi/2)	
     T2 = dh(0,math.pi/2+q[1],0.21,0)
     T3 =dh(0,q[2],0.029973,math.pi/2)

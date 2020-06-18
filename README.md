@@ -71,14 +71,14 @@ Then, start the controllers (ros_control):
 roslaunch niryo_one_gazebo niryo_one_control.launch
 ```
 
-Por último, en una nueva terminal ejecuta:
+Finally, in a new terminal:
 ```bash
 rosrun niryo_one_gazebo cambio.py
 ```
 
 2. Pick and place
 
-El robot se moverá hasta el lugar del objeto, y luego simulará un desplazamiento del mismo hasta un punto contrario
+The robot will move to the location  of the object and then move the container:
 
 First start Gazebo (empty world) and Niryo One model:
 
@@ -92,19 +92,11 @@ Then, start the controllers (ros_control):
 roslaunch niryo_one_gazebo niryo_one_control.launch
 ```
 
-Por último, en una nueva terminal ejecuta:
+Finally, in a new terminal:
 
 ```bash
 rosrun niryo_one_gazebo PickPlace.py
 ```
 
-
-### Otra parte
-
-
-
-The ROS interface to control Niryo One is the same for the [real robot](https://github.com/NiryoRobotics/niryo_one_ros) and the Gazebo simulation.
-
-The controller used for Niryo One is a joint\_trajectory\_controller (from ros\_control). See the [joint\_trajectory\_controller documentation](http://wiki.ros.org/joint_trajectory_controller) to know how to use it.
 
 

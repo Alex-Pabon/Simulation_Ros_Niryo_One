@@ -18,19 +18,19 @@ if __name__ == "__main__":
 	rospy.init_node("sendJointsNode")
 
 
-    	robot_client = actionlib.SimpleActionClient('niryo_one_follow_joint_trajectory_controller/follow_joint_trajectory',FollowJointTrajectoryAction) #Conectarse servidor
+    	robot_client = actionlib.SimpleActionClient('niryo_one_follow_joint_trajectory_controller/follow_joint_trajectory',FollowJointTrajectoryAction) #Connect to server
 
     	print "Waiting for server..."
    	robot_client.wait_for_server()
 	print "Connected to server"
 
-	Q0 = [0, 1, 0, 1, 0, 1]
+	Q0 = [0, 1, 0, 1, 0, 1]		#Initial position
 
    	g = FollowJointTrajectoryGoal()
     	g.trajectory = JointTrajectory()
    	g.trajectory.joint_names = joint_names
 
-    	# Initial position
+    	# Send initial position
     	g.trajectory.points = [ JointTrajectoryPoint(positions=Q0, velocities=[0]*6, time_from_start=rospy.Duration(2.0))]
     	robot_client.send_goal(g)
     	robot_client.wait_for_result()
@@ -41,7 +41,7 @@ if __name__ == "__main__":
         	robot_client.cancel_goal()
 
  
-        	Q0[0] = Q0[0]+0.005
+        	Q0[0] = Q0[0]+0.005   #Move robot
 
        	 	g.trajectory.points = [ JointTrajectoryPoint(positions=Q0, velocities=[0]*6, time_from_start=rospy.Duration(0.008))]
         	robot_client.send_goal(g)

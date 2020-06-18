@@ -11,25 +11,15 @@
         args="-param robot_description -urdf -model niryo_one" respawn="false" output="screen"/>
 
 
-   <!-- Estas lineas se agregan como una prueba -->
-
   <!-- spawn the conveyor_belt in gazebo -->
   <node name="spawn_conveyor_belt" pkg="gazebo_ros" type="spawn_model" args="-file $(find niryo_one_gazebo)/urdf/conveyor_belt.urdf -urdf -model conveyor_belt" />
 
-  <!-- the red blocks spawner node -->
- <!--<node name="blocks_spawner" pkg="niryo_one_gazebo" type="blocks_spawner" output="screen" />-->
-
+  <!--Spawn Red box-->
   <node name="spawn_box" pkg="gazebo_ros" type="spawn_model" args="-file $(find niryo_one_gazebo)/urdf/red_box.urdf -urdf -model red_box" />
 
-  <!-- the cylinder poses publisher node -->
-  <!--<node name="blocks_poses_publisher" pkg="niryo_one_gazebo" type="blocks_poses_publisher" output="screen" />-->
 
+  <!--Spawn blue bin-->
 <node name="spawn_bin" pkg="gazebo_ros" type="spawn_model" args="-file $(find niryo_one_gazebo)/urdf/bin.urdf -urdf -model blue_bin" />
 
-
-
-   <!-- start this controller -->
-   <!--<rosparam file="$(find niryo_one_gazebo)/config/niryo_one_controllers.yaml" command="load"/>
-  <node name="arm_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn arm_controller" respawn="false" output="screen"/>-->
         
 </launch>
