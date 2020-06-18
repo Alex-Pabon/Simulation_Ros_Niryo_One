@@ -58,7 +58,7 @@ rosrun niryo_one_description joystick_ikine
 Developed and tested on ROS Kinetic/Gazebo 9.
 
 1. Constant motion
-El Robot tendrá una posición inicial y apartir de esta se desplazará constantemente.
+The robot will have an initial position and from this it will move constantly.
 First start Gazebo (empty world) and Niryo One model:
 
 ```bash
